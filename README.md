@@ -1,6 +1,6 @@
 # coverage-delta-parser
 
-parsed chromes `CSS.takeCoverageDelta()` into critical and uncritical css.
+parses chromes `CSS.takeCoverageDelta()` into critical and uncritical css.
 
 uses [postcss](http://postcss.org/)
 
@@ -29,6 +29,7 @@ critical.toString()
 ```js
 {launch} = require("chrome-launcher")
 remoteInterface = require("chrome-remote-interface")
+parser = require("coverage-delta-parser")
 
 chromeInstance = await launch({chromeFlags: ["--disable-gpu","--headless"]})
 {DOM, CSS, Page} = await remoteInterface({port: chromeInstance.port})
