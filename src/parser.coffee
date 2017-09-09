@@ -28,8 +28,11 @@ module.exports = ({coverage, styleSheetIds, CSS, minify}) =>
     node.remove() if node.name == "media" and not node.nodes.length
   uncriticalRoot.walkRules (rule) => 
     rule.remove() unless rule.every (decl) =>  decl.prop != "used"
-  uncriticalRoot.walkAtRules (node) => 
-    node.remove() if node.name == "media" and not node.nodes.length
+  uncriticalRoot.walkAtRules (node) =>
+    if (name = node.name) == "media"
+      node.remove() unless node.nodes.length
+    else if name == "font-face" 
+      node.remove()
   return critical: criticalRoot, uncritical: uncriticalRoot
 
 
