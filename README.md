@@ -18,6 +18,7 @@ parser = require("coverage-delta-parser")
   coverage: coverage,          // result of CSS.takeCoverageDelta()
   CSS: CSS,                    // CSS of chrome-remote-interface
   styleSheetIds: styleSheetIds // (optional) array of styleSheetIds to filter
+  minify: false                // (optional) to strip no significant whitespace
 })
 // critical and uncritical are two postcss root objects
 // http://api.postcss.org/Root.html

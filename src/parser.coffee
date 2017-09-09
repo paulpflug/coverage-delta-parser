@@ -1,6 +1,6 @@
 postcss = require "postcss"
 
-module.exports = ({coverage, styleSheetIds, CSS}) =>
+module.exports = ({coverage, styleSheetIds, CSS, minify}) =>
   sheetsWithUsedRules = coverage
     .filter (rule) => 
       rule.used and (not styleSheetIds? or ~styleSheetIds.indexOf(rule.styleSheetId))
@@ -16,7 +16,10 @@ module.exports = ({coverage, styleSheetIds, CSS}) =>
       rawText.push text.slice lastOffset, s if (s = rule.startOffset) > lastOffset
       rawText.push text.slice(s, lastOffset = rule.endOffset).replace(/;*}/,";used:true;}")
     rawText.push text.slice lastOffset, text.length if lastOffset < text.length
-  rawText = rawText.map (str) => str.replace(/\s*([:;{}])\s*/g, "$1").replace(/(^\s+)|(\s+$)/g,"")
+  unless minify? and minify == false
+    unless typeof minify == "function"
+      minify = (str) => str.replace(/\s*([,:;{}])\s*/g, "$1").replace(/(^\s+)|(\s+$)/g,"")
+    rawText = await Promise.all rawText.map minify
   criticalRoot = postcss.parse(rawText.join(""))
   uncriticalRoot = criticalRoot.clone()
   criticalRoot.walkRules (rule) =>
