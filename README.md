@@ -19,11 +19,8 @@ parser = require("coverage-delta-parser")
   CSS: CSS,                    // CSS of chrome-remote-interface
   styleSheetIds: styleSheetIds // (optional) array of styleSheetIds to filter
   minify: false                // (optional) to strip no significant whitespace
+  plain: false                 // (optional) return postCss object instead of strings
 })
-// critical and uncritical are two postcss root objects
-// http://api.postcss.org/Root.html
-// get css like this:
-critical.toString() 
 ```
 
 ### Example

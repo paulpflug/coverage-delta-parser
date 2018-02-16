@@ -1,6 +1,6 @@
 postcss = require "postcss"
 
-module.exports = ({coverage, styleSheetIds, CSS, minify}) =>
+module.exports = ({coverage, styleSheetIds, CSS, minify, plain}) =>
   sheetsWithUsedRules = coverage
     .filter (rule) => 
       rule.used and (not styleSheetIds? or ~styleSheetIds.indexOf(rule.styleSheetId))
@@ -33,6 +33,9 @@ module.exports = ({coverage, styleSheetIds, CSS, minify}) =>
       node.remove() unless node.nodes.length
     else if name == "font-face" 
       node.remove()
-  return critical: criticalRoot, uncritical: uncriticalRoot
+  if plain
+    return critical: criticalRoot, uncritical: uncriticalRoot
+  else
+    return critical: criticalRoot.toString(), uncritical: uncriticalRoot.toString()
 
 

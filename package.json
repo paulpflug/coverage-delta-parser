@@ -15,20 +15,21 @@
   "engines": {
     "node": "*"
   },
-  "main": "parser.js",
+  "main": "lib/parser.js",
   "files": [
-    "*.js"
+    "lib/",
+    "shrinkwrap.yaml"
   ],
   "dependencies": {
-    "postcss": "^6.0.11"
+    "postcss": "^6.0.18"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "mocha": "^3.5.0",
-    "coffeescript": "^2.0.0-beta3",
-    "chrome-launcher": "^0.6.0",
-    "chrome-remote-interface": "^0.24.5",
-    "script-runner": "^0.1.7"
+    "chrome-launcher": "^0.10.2",
+    "chrome-remote-interface": "^0.25.5",
+    "coffee-loader": "^0.9.0",
+    "coffeescript": "^2.2.1",
+    "script-runner": "^0.1.7",
+    "snapy": "^0.1.1"
   },
   "keywords": [
     "critical css",
@@ -37,8 +38,8 @@
   ],
   "readmeFilename": "README.md",
   "scripts": {
-    "build": "coffee --bare --no-header --compile --output . src/*.coffee",
-    "test": "mocha",
+    "build": "coffee --bare --no-header --compile --output lib/ src/*.coffee",
+    "test": "snapy",
     "preversion": "npm run test",
     "version": "npm run build && git add .",
     "postversion": "git push && git push --tags && npm publish"
